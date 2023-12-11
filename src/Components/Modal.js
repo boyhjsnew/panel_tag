@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { styleError, styleSuccess } from "./ToastNotifyStyle";
 
 export default function Modal(props) {
-  const [userName, setUsername] = useState("");
+  const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [second_name, setSecond_name] = useState("");
@@ -23,16 +23,18 @@ export default function Modal(props) {
   useEffect(() => {
     // Nếu có dữ liệu khách hàng, thì điền dữ liệu đó vào các trường nhập liệu
     if (editCustomerData) {
-      setUsername(editCustomerData.userName || "");
+      setUsername(editCustomerData.username || "");
+      setName(editCustomerData.name || "");
       setPassword(editCustomerData.password || "");
       setSecond_name(editCustomerData.second_name || "");
       setDateOfBirth(editCustomerData.date_of_birth || "");
       setEmail(editCustomerData.email || "");
-      setRole_id(editCustomerData.role_id || "");
+      setRole_id(editCustomerData.role.role_id || "");
     } else {
       // Nếu không có dữ liệu khách hàng, xóa toàn bộ trường nhập liệu
       setUsername("");
       setPassword("");
+      setName("");
       setSecond_name("");
       setDateOfBirth("");
       setEmail("");
@@ -42,7 +44,7 @@ export default function Modal(props) {
 
   const handleSubmit = async (event) => {
     console.log({
-      userName,
+      username,
       password,
       second_name,
       date_of_birth,
@@ -54,7 +56,7 @@ export default function Modal(props) {
     event.preventDefault();
 
     if (
-      userName.trim().length === 0 ||
+      username.trim().length === 0 ||
       password.trim().length === 0 ||
       email.trim().length === 0 ||
       role_id.trim().length === 0 ||
@@ -75,7 +77,7 @@ export default function Modal(props) {
         const response = await axios.post(
           "http://localhost:8080/api/user/register",
           {
-            userName,
+            username,
             password,
             second_name,
             date_of_birth,
@@ -107,7 +109,7 @@ export default function Modal(props) {
       const response = await axios.put(
         `http://127.0.0.1:8081/UpdateCustomer/${editCustomerData.user_id}`,
         {
-          userName,
+          username,
           password,
           second_name,
           date_of_birth,
@@ -192,7 +194,7 @@ export default function Modal(props) {
                         Tên người dùng
                       </label>
                       <input
-                        value={userName}
+                        value={username}
                         className="input-customer"
                         id="username"
                         type="text"

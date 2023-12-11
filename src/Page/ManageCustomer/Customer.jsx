@@ -36,6 +36,7 @@ const Customer = () => {
       name: "Nguyen van A",
       second_name: "writer",
       email: "aggaag@gmail.com",
+      password: "1234",
       date_of_birth: "20/05/2001",
       role: {
         role_id: 1,
@@ -47,6 +48,7 @@ const Customer = () => {
       name: "Nguyen van B",
       second_name: "tags ",
       email: "aggsdsdaag@gmail.com",
+      password: "1234",
       date_of_birth: "20/05/2001",
       role: {
         role_id: 1,
@@ -180,8 +182,7 @@ const Customer = () => {
       );
       if (selectedCustomer) {
         // Đổ thông tin của khách hàng vào state editCustomerData
-        // setEditCustomerData(selectedCustomer);
-        console.log(selectedCustomer);
+        setEditCustomerData(selectedCustomer);
 
         // Mở modal
         setModal(true);

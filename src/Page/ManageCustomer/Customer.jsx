@@ -32,17 +32,25 @@ const Customer = () => {
   const [customers, setCustomers] = useState([
     {
       user_id: 0,
+      username: "nguyenvana",
       name: "Nguyen van A",
       second_name: "writer",
       email: "aggaag@gmail.com",
       date_of_birth: "20/05/2001",
+      role: {
+        role_id: 1,
+      },
     },
     {
       user_id: 1,
+      username: "nguyenvanb",
       name: "Nguyen van B",
       second_name: "tags ",
       email: "aggsdsdaag@gmail.com",
       date_of_birth: "20/05/2001",
+      role: {
+        role_id: 1,
+      },
     },
   ]);
   const [getIDRow, setIDRow] = useState(-1);
@@ -148,37 +156,38 @@ const Customer = () => {
         );
         // Sau khi xóa, bạn có thể thực hiện lại yêu cầu GET để cập nhật danh sách khách hàng
         getCustomer();
-        setIDRow(null);
+        setIDRow(-1);
       })
       .catch((error) => {
         console.error("Lỗi khi xoá khách hàng:", error);
       });
   };
-  //   const handleEditButtonClick = () => {
-  //     if (!getIDRow) {
-  //       // Nếu chưa chọn dòng nào, thông báo cho người dùng
+  const handleEditButtonClick = () => {
+    if (getIDRow === -1) {
+      // Nếu chưa chọn dòng nào, thông báo cho người dùng
 
-  //       toast.error(
-  //         <ToastNotify
-  //           status={-1}
-  //           message="Vui lòng chọn một khách hàng để sửa."
-  //         />,
-  //         { style: styleError }
-  //       );
-  //     } else {
-  //       // Nếu đã chọn dòng, tìm dòng tương ứng trong danh sách khách hàng và mở modal chỉnh sửa
-  //       const selectedCustomer = customers.find(
-  //         (customer) => customer.user_id === getIDRow
-  //       );
-  //       if (selectedCustomer) {
-  //         // Đổ thông tin của khách hàng vào state editCustomerData
-  //         setEditCustomerData(selectedCustomer);
+      toast.error(
+        <ToastNotify
+          status={-1}
+          message="Vui lòng chọn một khách hàng để sửa."
+        />,
+        { style: styleError }
+      );
+    } else {
+      // Nếu đã chọn dòng, tìm dòng tương ứng trong danh sách khách hàng và mở modal chỉnh sửa
+      const selectedCustomer = customers.find(
+        (customer) => customer.user_id === getIDRow
+      );
+      if (selectedCustomer) {
+        // Đổ thông tin của khách hàng vào state editCustomerData
+        // setEditCustomerData(selectedCustomer);
+        console.log(selectedCustomer);
 
-  //         // Mở modal
-  //         setModal(true);
-  //       }
-  //     }
-  //   };
+        // Mở modal
+        setModal(true);
+      }
+    }
+  };
 
   const columns = useMemo(() => [
     {
@@ -335,7 +344,7 @@ const Customer = () => {
                   ></span>
                   <span style={{ paddingLeft: "5px" }}>Thêm</span>
                 </Button>
-                <Button className="btn_edit">
+                <Button className="btn_edit" onClick={handleEditButtonClick}>
                   <span
                     style={{ paddingRight: "5px" }}
                     className="fa-solid fa-pencil"

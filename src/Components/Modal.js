@@ -11,7 +11,7 @@ export default function Modal(props) {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [second_name, setSecond_name] = useState("");
-  const [date_of_birth, setDateOfBirth] = useState("");
+  const [date_of_birth, setDateOfBirth] = useState(new Date());
   const [email, setEmail] = useState("");
   const [role_id, setRole_id] = useState();
 
@@ -29,14 +29,14 @@ export default function Modal(props) {
       setSecond_name(editCustomerData.second_name || "");
       setDateOfBirth(editCustomerData.date_of_birth || "");
       setEmail(editCustomerData.email || "");
-      setRole_id(editCustomerData.role.role_id || "");
+      setRole_id(editCustomerData.role.role_id || new Date());
     } else {
       // Nếu không có dữ liệu khách hàng, xóa toàn bộ trường nhập liệu
       setUsername("");
       setPassword("");
       setName("");
       setSecond_name("");
-      setDateOfBirth("");
+      setDateOfBirth(new Date());
       setEmail("");
       setRole_id("");
     }
@@ -281,7 +281,7 @@ export default function Modal(props) {
                         value={date_of_birth}
                         className="input-customer"
                         id="username"
-                        type="text"
+                        type="date"
                         name="WebsiteAddress"
                         onChange={(e) => setDateOfBirth(e.target.value)}
                       />

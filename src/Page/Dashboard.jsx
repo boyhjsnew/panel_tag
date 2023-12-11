@@ -32,7 +32,7 @@ const Dashboard = () => {
               >
                 <div className="text-align col l-3">
                   <i
-                    class="fa fa-house"
+                    className="fa-solid fa-newspaper"
                     style={{
                       color: "rgba(255, 255, 255, 0.17)",
                       fontSize: "40px",
@@ -49,7 +49,7 @@ const Dashboard = () => {
                       textTransform: "uppercase",
                     }}
                   >
-                    chi nhánh
+                    Số lượng bài viết
                   </div>
                   <div
                     className="mb-1 "
@@ -59,7 +59,7 @@ const Dashboard = () => {
                       display: "block",
                     }}
                   >
-                    {dvcsLenght}
+                    10
                   </div>
                 </div>
               </div>
@@ -81,7 +81,7 @@ const Dashboard = () => {
               >
                 <div className="text-align col l-3">
                   <i
-                    class="fa-solid fa-file"
+                    class="fa-solid fa-layer-group"
                     style={{
                       color: "rgba(255, 255, 255, 0.17)",
                       fontSize: "40px",
@@ -98,7 +98,7 @@ const Dashboard = () => {
                       textTransform: "uppercase",
                     }}
                   >
-                    Loại dịch vụ
+                    Số lượng danh mục
                   </div>
                   <div
                     className="mb-1 "
@@ -130,7 +130,7 @@ const Dashboard = () => {
               >
                 <div className="text-align col l-3">
                   <i
-                    className="fa-solid fa-receipt"
+                    className="fa-solid fa-users"
                     style={{
                       color: "rgba(255, 255, 255, 0.17)",
                       fontSize: "40px",
@@ -147,10 +147,9 @@ const Dashboard = () => {
                       textTransform: "uppercase",
                     }}
                   >
-                    phiếu thu
-                    <br />
-                    hôm nay
+                    Số lượng người dùng
                   </div>
+
                   <div
                     className="mb-1 "
                     style={{
@@ -181,7 +180,7 @@ const Dashboard = () => {
               >
                 <div className="text-align col l-3">
                   <i
-                    className="fa-solid fa-file-invoice"
+                    className="fa-solid fa-hand-pointer"
                     style={{
                       color: "rgba(255, 255, 255, 0.17)",
                       fontSize: "40px",
@@ -198,9 +197,7 @@ const Dashboard = () => {
                       textTransform: "uppercase",
                     }}
                   >
-                    phiếu thu
-                    <br />
-                    hôm qua
+                    Số lượt truy cập
                   </div>
                   <div
                     className="mb-1 "
@@ -232,7 +229,7 @@ const Dashboard = () => {
               >
                 <div className="text-align col l-3">
                   <i
-                    className="fa-solid fa-calendar-plus"
+                    className="fa-solid fa-eye"
                     style={{
                       color: "rgba(255, 255, 255, 0.17)",
                       fontSize: "40px",
@@ -249,7 +246,7 @@ const Dashboard = () => {
                       textTransform: "uppercase",
                     }}
                   >
-                    tổng phiếu thu
+                    số lượt xem
                   </div>
                   <div
                     className="mb-1 "
@@ -268,7 +265,7 @@ const Dashboard = () => {
 
           {/* panel item */}
           {/* panel item */}
-          <div className="col l-2 m-2   " style={{}}>
+          {/* <div className="col l-2 m-2   " style={{}}>
             <a href="#" style={{ textDecoration: "none" }}>
               <div
                 className="card row"
@@ -313,10 +310,10 @@ const Dashboard = () => {
                 </div>
               </div>
             </a>
-          </div>
+          </div> */}
           {/* panel item */}
           {/* table layout item */}
-          <div className="col l-6">
+          {/* <div className="col l-6">
             <div
               className="card row"
               style={{
@@ -339,10 +336,10 @@ const Dashboard = () => {
                 </span>
               </div>
             </div>
-          </div>
+          </div> */}
           {/* table layout item */}
           {/* table layout item */}
-          <div className="col l-6">
+          {/* <div className="col l-6">
             <div
               className="card row"
               style={{
@@ -365,7 +362,7 @@ const Dashboard = () => {
                 </span>
               </div>
             </div>
-          </div>
+          </div> */}
           {/* table layout item */}
           {/* footer */}
           {/* <div

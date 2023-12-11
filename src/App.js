@@ -2,12 +2,13 @@ import * as React from "react";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import Login from "./Page/Login";
+import "././login.scss";
+import "./App.css";
 
 import NavBar from "./Components/NavBar";
 
-import "././login.scss";
-import "./App.css";
 import Dashboard from "./Page/Dashboard";
+import Customer from "./Page/ManageCustomer/Customer";
 // import Breadcrumbs from "./Components/Breadcrumbs";
 
 const Layout = () => {
@@ -32,10 +33,10 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <Dashboard />,
       },
-      // {
-      //   path: "/customers",
-      //   element: <Customer />,
-      // },
+      {
+        path: "/customers",
+        element: <Customer />,
+      },
     ],
   },
 ]);

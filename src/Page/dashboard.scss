@@ -22,7 +22,7 @@
 }
 .row {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
   margin-left: -4px;
   margin-right: -4px;
 }
@@ -33,6 +33,7 @@
   margin-bottom: 1rem;
   transition: filter 0.3s; /* Thêm hiệu ứng chuyển đổi cho thuộc tính filter */
   text-align: center;
+  padding: 4px 22px;
 }
 
 .text-align {

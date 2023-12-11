@@ -32,20 +32,12 @@ const NavBar = () => {
             <Link className="link" to="/invoices">
               <span
                 style={{ paddingRight: "5px" }}
-                class="fa-solid fa-file-invoice"
+                className="fa-solid fa-layer-group"
               ></span>
-              <span>Quản lý phiếu thu</span>
+              <span>Quản lý danh mục</span>
             </Link>
           </li>
-          {/* <li role="none" style={{ alignItems: "center" }}>
-            <Link className="link" to="/customers">
-              <span
-                style={{ paddingRight: "5px" }}
-                className="fa-solid fa-file-export"
-              ></span>
-              <span>Xuất phiếu thu</span>
-            </Link>
-          </li> */}
+
           <li
             role="none"
             style={{ alignItems: "center" }}
@@ -56,7 +48,7 @@ const NavBar = () => {
                 style={{ paddingRight: "5px" }}
                 className="fa-solid fa-users"
               ></span>
-              <span>Quản lý khách hàng</span>
+              <span>Quản lý người dùng</span>
             </Link>
           </li>
           <li
@@ -67,35 +59,9 @@ const NavBar = () => {
             <Link className="link" to="/services">
               <span
                 style={{ paddingRight: "5px" }}
-                class="fa-solid fa-table-list"
+                class="fa-solid fa-tag"
               ></span>
-              <span>Quản lý dịch vụ</span>
-            </Link>
-          </li>
-          <li
-            role="none"
-            style={{ alignItems: "center" }}
-            className={getLocation.pathname === "/branchreport" ? "active" : ""}
-          >
-            <Link className="link" to="/branchreport">
-              <span
-                style={{ paddingRight: "5px" }}
-                class="fa-solid fa-calendar-days"
-              ></span>
-              <span>Báo cáo chi nhánh</span>
-            </Link>
-          </li>
-          <li
-            role="none"
-            style={{ alignItems: "center" }}
-            className={getLocation.pathname === "/systemreport" ? "active" : ""}
-          >
-            <Link className="link" to="/systemreport">
-              <span
-                style={{ paddingRight: "5px" }}
-                class="fa-solid fa-chart-pie"
-              ></span>
-              <span>Báo cáo hệ thống</span>
+              <span>Quản lý tags </span>
             </Link>
           </li>
         </ul>

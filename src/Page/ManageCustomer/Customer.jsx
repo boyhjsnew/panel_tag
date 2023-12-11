@@ -20,7 +20,7 @@ import Modal from "../../Components/Modal";
 import axios from "axios";
 import { toast } from "react-toastify";
 import ToastNotify from "../../Components/ToastNotify";
-import { styleError } from "../../Components/ToastNotifyStyle";
+import { styleError, styleSuccess } from "../../Components/ToastNotifyStyle";
 
 const Customer = () => {
   //hidden scroll
@@ -118,43 +118,42 @@ const Customer = () => {
   };
 
   const handleRowClick = (row) => {
-    if (getIDRow === "" || getIDRow !== row.original.user_id) {
+    if (getIDRow === -1 || getIDRow !== row.original.user_id) {
       setIDRow(row.original.user_id);
     } else {
       setIDRow(-1);
     }
   };
 
-  //   const handleDeleteCustomer = (e) => {
-  //     e.preventDefault();
-  //     if (!getIDRow) {
-  //       toast.error(
-  //         <ToastNotify
-  //           status={-1}
-  //           message="Vui lòng chọn một khách hàng để xoá"
-  //         />,
-  //         { style: styleError }
-  //       );
-  //       return;
-  //     }
-  //     // Gửi yêu cầu DELETE đến endpoint để xóa khách hàng
-  //     axios
-  //       .delete(`http://127.0.0.1:8081/DeleteCustomer/${getIDRow}`)
-  //       .then((response) => {
-  //         // Xóa thành công
-  //         toast.success(
-  //           <ToastNotify status={0} message="Xoá khách hàng thành công" />,
-  //           { style: styleSuccess }
-  //         );
-  //         // Sau khi xóa, bạn có thể thực hiện lại yêu cầu GET để cập nhật danh sách khách hàng
-  //         getCustomer();
-  //         setIDRow(null);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Lỗi khi xoá khách hàng:", error);
-  //         alert("Xoá khách hàng thất bại.");
-  //       });
-  //   };
+  const handleDeleteCustomer = (e) => {
+    e.preventDefault();
+    if (getIDRow === -1) {
+      toast.error(
+        <ToastNotify
+          status={-1}
+          message="Vui lòng chọn một người dùng để xoá"
+        />,
+        { style: styleError }
+      );
+      return;
+    }
+    // Gửi yêu cầu DELETE đến endpoint để xóa khách hàng
+    axios
+      .delete(`http://localhost:8080/api/user/delete${getIDRow}`)
+      .then((response) => {
+        // Xóa thành công
+        toast.success(
+          <ToastNotify status={0} message="Xoá người dùng thành công" />,
+          { style: styleSuccess }
+        );
+        // Sau khi xóa, bạn có thể thực hiện lại yêu cầu GET để cập nhật danh sách khách hàng
+        getCustomer();
+        setIDRow(null);
+      })
+      .catch((error) => {
+        console.error("Lỗi khi xoá khách hàng:", error);
+      });
+  };
   //   const handleEditButtonClick = () => {
   //     if (!getIDRow) {
   //       // Nếu chưa chọn dòng nào, thông báo cho người dùng
@@ -345,7 +344,7 @@ const Customer = () => {
                 </Button>
                 <Button
                   className="btn_remove"
-                  //   onClick={(e) => handleDeleteCustomer(e)}
+                  onClick={(e) => handleDeleteCustomer(e)}
                 >
                   <span
                     style={{ paddingRight: "5px" }}

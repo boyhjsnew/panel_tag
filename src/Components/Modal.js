@@ -41,10 +41,26 @@ export default function Modal(props) {
   }, [editCustomerData]);
 
   const handleSubmit = async (event) => {
+    console.log({
+      userName,
+      password,
+      second_name,
+      date_of_birth,
+      email,
+      role: {
+        role_id,
+      },
+    });
     event.preventDefault();
 
-    if (userName.trim === "") {
-      toast.styleError(
+    if (
+      userName.trim().length === 0 ||
+      password.trim().length === 0 ||
+      email.trim().length === 0 ||
+      role_id.trim().length === 0 ||
+      date_of_birth.trim().length === 0
+    ) {
+      toast.error(
         <ToastNotify
           status={-1}
           message="Vui lòng điền đẩy đủ trường thông tin"
@@ -57,7 +73,7 @@ export default function Modal(props) {
     } else {
       try {
         const response = await axios.post(
-          "http://127.0.0.1:8081/CreateCustomer",
+          "http://localhost:8080/api/user/register",
           {
             userName,
             password,
@@ -71,7 +87,7 @@ export default function Modal(props) {
         );
 
         toast.success(
-          <ToastNotify status={0} message="Thêm khách hàng thành công" />,
+          <ToastNotify status={0} message="Thêm người dùng thành công" />,
           {
             style: styleSuccess,
           }
@@ -124,7 +140,16 @@ export default function Modal(props) {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        autoClose={2000}
+        hideProgressBar
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       {modal && (
         <div className="modal">
           <div onClick={toggleModal} className="overlay">

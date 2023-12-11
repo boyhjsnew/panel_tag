@@ -18,31 +18,16 @@
   bottom: 0;
   justify-content: center;
 }
-// .css-wdb1vf-MuiTableContainer-root {
-//   width: 100%;
-//   overflow-x: auto;
-//   max-width: 100%;
-//   /* max-height: clamp(350px, calc(100vh - 112px), 9999px); */
-//   overflow: auto;
-//   height: calc(100vh - 260px) !important;
-// }
-.css-1q7znc3-MuiTableContainer-root {
+
+.MuiTableContainer-root.css-jnnnec-MuiTableContainer-root {
   width: 100%;
   overflow-x: auto;
   max-width: 100%;
-  /* max-height: clamp(350px, calc(100vh - 112px), 9999px); */
+
   overflow: auto;
-  min-height: calc(100vh - 260px) !important;
+  height: calc(100vh - 240px) !important;
 }
 
-.css-1d45wrc-MuiTableContainer-root {
-  width: 100%;
-  overflow-x: auto;
-  max-width: 100%;
-  /* max-height: clamp(350px, calc(100vh - 112px), 9999px); */
-  overflow: auto;
-  max-height: calc(100vh - 219px) !important;
-}
 .css-sq9qdz {
   align-items: center !important;
   border: 1px solid #aaaa;

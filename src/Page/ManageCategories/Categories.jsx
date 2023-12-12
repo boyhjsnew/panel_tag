@@ -8,23 +8,22 @@ import { Box, Button } from "@mui/material";
 import { useImperativeDisableScroll } from "../../Utils/configScrollbar";
 import { toast } from "react-toastify";
 
-import { useNavigate } from "react-router-dom";
-
 import axios from "axios";
 import ToastNotify from "../../Components/ToastNotify";
 import { styleError, styleSuccess } from "../../Components/ToastNotifyStyle";
 
 import ExcelJS from "exceljs";
 import "./categories.css";
+import ModalCategories from "../../Components/ModalCategories";
+import { baseUrl } from "../../config";
 
-// import ModalReceiptEdit from "../../Components/ModalReceiptEdit";
-// import TransferRecipt from "../../Components/TransferReceipt";
 const Categroies = () => {
   const [getIDRow, setIDRow] = useState(0);
 
+  const [editCategoriesData, setEditCategoreData] = useState();
+
   //active modal
-  const [modalReceipts, setModalReceipts] = useState(false);
-  const [isModalChooseFile, setIsModalChooseFile] = useState(false);
+
   const [categoriesData, setCategoriesData] = useState([
     {
       categories_id: 1,
@@ -35,34 +34,32 @@ const Categroies = () => {
       name: "Covid",
     },
   ]);
-  const [modalPrintPDF, setmodalPrintPDF] = useState(false);
 
-  const [modalReceiptsEdit, setModalReceiptsEdit] = useState(false);
-  const [modalTransferReceipts, setModalTransferReceipts] = useState(false);
-  const [transferReceiptData, setTransferReceiptData] = useState(null);
+  const [modal, setModal] = useState(false);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    document.title = "Danh mục";
+  }, []);
 
   const fetchData = async () => {
     try {
       // Fetching receipt data
       const receiptResponse = await axios.get(
-        `http://127.0.0.1:8081/GetReceipt`
+        `${baseUrl}/api/category/all-categories`
       );
       setCategoriesData(receiptResponse.data);
     } catch (error) {
       // Handle errors
       console.error(error);
       toast.error(<ToastNotify status={-1} message={error.message} />, {
-        style: { style: styleError },
+        style: styleError,
       });
     }
   };
 
   useEffect(() => {
     fetchData();
-  }, [modalReceipts, modalTransferReceipts, modalReceiptsEdit]);
-
+  }, []);
   //hidden scroll
   useImperativeDisableScroll({
     element: document.scrollingElement,
@@ -87,14 +84,7 @@ const Categroies = () => {
 
     // Thêm dữ liệu khách hàng
     categoriesData.forEach((Invoices) => {
-      const row = [
-        Invoices.sophieu,
-
-        Invoices.ngayraphieu,
-        Invoices.chusohuu,
-        Invoices.tongtien,
-        Invoices.tienbangchu,
-      ];
+      const row = [categoriesData.name];
       worksheet.addRow(row);
     });
 
@@ -124,21 +114,18 @@ const Categroies = () => {
     }
   };
 
-  const handleDeleteInvoices = (e) => {
-    e.preventDefault();
-    if (!getIDRow) {
+  const handleDeleteCategories = (categories_id) => {
+    console.log(categories_id);
+    if (!categories_id) {
       toast.error(
-        <ToastNotify
-          status={-1}
-          message="Vui lòng chọn một phiếu thu để xoá"
-        />,
+        <ToastNotify status={-1} message="Vui lòng một danh mục để xoá" />,
         { style: styleError }
       );
       return;
     } else {
       // Gửi yêu cầu DELETE đến endpoint để xóa khách hàng
       axios
-        .delete(`http://127.0.0.1:8081/DeleteReceipt/${getIDRow}`)
+        .delete(`${baseUrl}/api/category/delete/${categories_id}`)
         .then((response) => {
           // Xóa thành công
           toast.success(
@@ -157,76 +144,20 @@ const Categroies = () => {
     }
   };
 
-  const handleTransferReceipt = async () => {
-    try {
-      if (!getIDRow) {
-        toast.error(
-          <ToastNotify status={-1} message="Vui lòng chọn một phiếu thu" />,
-          { style: styleError }
-        );
-        return;
-      }
+  const handleEditRecipt = (row) => {
+    // Tạo một promise
+    const promise = new Promise((resolve) => {
+      // Set dữ liệu cho setEditCategoreData(row)
+      setEditCategoreData(row);
 
-      const phieuthuId = transferReceiptData.phieuthu_id;
+      // Giải quyết promise sau khi đã set dữ liệu
+      resolve();
+    });
 
-      // Gọi endpoint để lấy thông tin phieuthu và phieuthu_chitiet
-      const response = await axios.get(
-        `http://127.0.0.1:8081/GetTransferDetails/${phieuthuId}`
-      );
-
-      // Kiểm tra nếu có dữ liệu trả về từ server
-      if (response.data) {
-        // Thiết lập thông tin chi tiết sau khi lấy từ server
-      } else {
-        // Xử lý trường hợp không có dữ liệu trả về
-        toast.error(
-          <ToastNotify
-            status={-1}
-            message="Không có thông tin chi tiết cho phiếu thu này"
-          />,
-          { style: styleError }
-        );
-      }
-    } catch (error) {
-      console.error("get details" + error);
-      // Xử lý lỗi nếu cần
-    }
-
-    // Đóng modal sau khi xử lý
-    setModalTransferReceipts(!modalTransferReceipts);
-  };
-
-  const handleViewPrint = async (row) => {
-    try {
-      const phieuthuId = row.original.phieuthu_id;
-
-      // Gọi endpoint để lấy thông tin phieuthu và phieuthu_chitiet
-      const response = await axios.get(
-        `http://127.0.0.1:8081/GetReceiptDetails/${phieuthuId}`
-      );
-      const data = response.data;
-
-      setmodalPrintPDF(!modalPrintPDF);
-    } catch (error) {
-      console.error(error);
-      // Xử lý lỗi nếu cần
-    }
-  };
-  const handleEditRecipt = async (row) => {
-    try {
-      const phieuthuId = row.original.phieuthu_id;
-
-      // Gọi endpoint để lấy thông tin phieuthu và phieuthu_chitiet
-      const response = await axios.get(
-        `http://127.0.0.1:8081/GetReceiptDetails/${phieuthuId}`
-      );
-      const data = response.data;
-
-      setModalReceiptsEdit(!modalReceiptsEdit);
-    } catch (error) {
-      console.error(error);
-      // Xử lý lỗi nếu cần
-    }
+    // Sau khi promise được giải quyết, mở setModal(!modal)
+    promise.then(() => {
+      setModal(!modal);
+    });
   };
 
   const columns = useMemo(() => [
@@ -273,6 +204,7 @@ const Categroies = () => {
       accessorKey: "assignService",
       // Tiêu đề của cột "Assign Service"
       accessor: "assignService", // Truy cập dữ liệu của cột "Assign Service"
+      size: "180",
 
       Cell: ({ row }) => (
         <div
@@ -299,27 +231,8 @@ const Categroies = () => {
           >
             <i style={{ fontSize: "11px" }} className="fa-solid fa-pen"></i>
           </button>
-
           <button
-            onClick={() => handleViewPrint(row)}
-            title="Xem in"
-            style={{
-              border: "1px solid #6466F1",
-              display: "flex",
-              borderRadius: "100%",
-              alignItems: "center",
-              justifyContent: "center",
-              height: "2rem",
-              padding: "13px",
-              width: "2rem ",
-              color: "#6466F1",
-              backgroundColor: "#FFFF",
-              cursor: "pointer",
-            }}
-          >
-            <i style={{ fontSize: "11px" }} className="fa-solid fa-eye"></i>
-          </button>
-          <button
+            onClick={() => handleDeleteCategories(row.original.categories_id)}
             title="Xoá"
             style={{
               border: "1px solid #6466F1",
@@ -366,21 +279,12 @@ const Categroies = () => {
                         `}
         </style>
 
-        {/* <ModalReceipt
-          invoicesDataLength={invoicesData.length}
-          modalReceipts={modalReceipts}
-          setModalReceipts={setModalReceipts}
-          editReceiptData={editReceiptData}
-          setEditReceiptData={setEditReceiptData}
-          // getReceipt={getReceipt}
+        <ModalCategories
+          modal={modal}
+          setModal={setModal}
+          editCategoriesData={editCategoriesData}
+          setEditCategoreData={setEditCategoreData}
         />
-        <ModalReceiptEdit
-          getReceiptData={viewReceiptData}
-          modalReceiptsEdit={modalReceiptsEdit}
-          setModalReceiptsEdit={setModalReceiptsEdit}
-
-          // getReceipt={getReceipt}
-        /> */}
 
         <div className="col l-12">
           <MaterialReactTable
@@ -436,7 +340,7 @@ const Categroies = () => {
                 <Button
                   className="btn_add"
                   style={{}}
-                  onClick={() => setModalReceipts(!modalReceipts)}
+                  onClick={() => setModal(!modal)}
                 >
                   <span
                     style={{ paddingRight: "5px" }}

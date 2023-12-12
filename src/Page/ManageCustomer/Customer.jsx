@@ -18,9 +18,10 @@ import ExcelJS from "exceljs";
 import { useNavigate } from "react-router-dom";
 import Modal from "../../Components/Modal";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import ToastNotify from "../../Components/ToastNotify";
 import { styleError, styleSuccess } from "../../Components/ToastNotifyStyle";
+import { baseUrl } from "../../config";
 
 const Customer = () => {
   //hidden scroll
@@ -63,20 +64,17 @@ const Customer = () => {
 
   //active modal
   const [modal, setModal] = useState(false);
-  const [modalAssign, setModalAssign] = useState(false);
-  const [isLoading, setIsloading] = useState(false);
-  const [isModalChooseFile, setIsModalChooseFile] = useState(false);
 
   const getCustomer = () => {
     axios
-      .get("http://localhost:8080/api/user/get-all")
+      .get(`${baseUrl}/api/user/get-all`)
+
       .then((res) => setCustomers(res.data))
-      .catch((err) =>
-        toast.error(<ToastNotify status={-1} message={err.message} />, {
-          style: styleError,
-        })
-      );
+      .catch((err) => console.log("sdhvs"));
   };
+  useEffect(() => {
+    document.title = "Người dùng";
+  }, []);
   useEffect(() => {
     getCustomer();
   }, [modal]);
@@ -137,19 +135,11 @@ const Customer = () => {
 
   const handleDeleteCustomer = (e) => {
     e.preventDefault();
-    if (getIDRow === -1) {
-      toast.error(
-        <ToastNotify
-          status={-1}
-          message="Vui lòng chọn một người dùng để xoá"
-        />,
-        { style: styleError }
-      );
-      return;
-    }
+
     // Gửi yêu cầu DELETE đến endpoint để xóa khách hàng
     axios
-      .delete(`http://localhost:8080/api/user/delete${getIDRow}`)
+      .delete(`${baseUrl}/api/user/delete${getIDRow}`)
+
       .then((response) => {
         // Xóa thành công
         toast.success(
@@ -272,26 +262,14 @@ const Customer = () => {
                           }
                         `}
         </style>
-        {/* <ToastContainer autoClose={2000} hideProgressBar /> */}
+        <ToastContainer autoClose={2000} hideProgressBar />
         <Modal
           modal={modal}
           setModal={setModal}
           editCustomerData={editCustomerData}
           setEditCustomerData={setEditCustomerData}
         />
-        {/* <ModalAssignService
-          setidCus={setidCus}
-          idCus={idCus}
-          modalAssign={modalAssign}
-          setModalAssign={setModalAssign}
-          editCustomerData={editCustomerData}
-          setEditCustomerData={setEditCustomerData}
-        /> */}
-        {/* <ModalChooseFile
-          getCustomer={getCustomer}
-          isModalChooseFile={isModalChooseFile}
-          setIsModalChooseFile={setIsModalChooseFile}
-        /> */}
+
         <div className="col l-12">
           <MaterialReactTable
             enableStickyHeader={true}

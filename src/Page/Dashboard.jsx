@@ -7,6 +7,9 @@ const Dashboard = () => {
   const [khieuDVCS, setkhieuDVCS] = useState();
 
   const navigate = useNavigate();
+  useEffect(() => {
+    document.title = "Tổng quan";
+  }, []);
 
   return (
     <div

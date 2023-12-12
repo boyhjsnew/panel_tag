@@ -76,6 +76,16 @@
   transition: box-shadow 0.2s;
   border-radius: 0;
 }
+.css-1q7znc3-MuiTableContainer-root {
+  width: 100%;
+  overflow-x: auto;
+
+  max-width: 100%;
+  overflow: auto;
+  position: relative;
+  height: calc(100vh - 240px) !important;
+}
+
 .list_kyhieu li:hover {
   background-color: #f0f1ff;
 }

@@ -9,7 +9,7 @@ const Login = () => {
 
   useEffect(() => {
     document.title = "Đăng nhập";
-  });
+  }, []);
 
   return (
     <div className="login">

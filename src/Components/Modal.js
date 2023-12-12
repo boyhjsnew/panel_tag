@@ -5,6 +5,7 @@ import axios from "axios";
 import ToastNotify from "./ToastNotify";
 import { ToastContainer, toast } from "react-toastify";
 import { styleError, styleSuccess } from "./ToastNotifyStyle";
+import { baseUrl } from "../config";
 
 export default function Modal(props) {
   const [username, setUsername] = useState("");
@@ -74,19 +75,16 @@ export default function Modal(props) {
       return;
     } else {
       try {
-        const response = await axios.post(
-          "http://localhost:8080/api/user/register",
-          {
-            username,
-            password,
-            second_name,
-            date_of_birth,
-            email,
-            role: {
-              role_id,
-            },
-          }
-        );
+        const response = await axios.post(`${baseUrl}/api/user/register`, {
+          username,
+          password,
+          second_name,
+          date_of_birth,
+          email,
+          role: {
+            role_id,
+          },
+        });
 
         toast.success(
           <ToastNotify status={0} message="Thêm người dùng thành công" />,
@@ -102,12 +100,12 @@ export default function Modal(props) {
       }
     }
   };
-  // Hàm xử lý cập nhật thông tin khách hàng
+  // Hàm xử lý cập nhật thông tin user
   const handleUpdateCustomer = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://127.0.0.1:8081/UpdateCustomer/${editCustomerData.user_id}`,
+        `http://localhost:8080/api/user/update/${editCustomerData.user_id}`,
         {
           username,
           password,

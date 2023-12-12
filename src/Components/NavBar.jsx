@@ -25,6 +25,19 @@ const NavBar = () => {
       <div style={{ flex: 6, display: "flex", justifyContent: "center" }}>
         <ul className="ul-list-nav">
           <li
+            role="none"
+            style={{ alignItems: "center" }}
+            className={getLocation.pathname === "/customers" ? "active" : ""}
+          >
+            <Link className="link" to="/customers">
+              <span
+                style={{ paddingRight: "5px" }}
+                className="fa-solid fa-users"
+              ></span>
+              <span>Quản lý người dùng</span>
+            </Link>
+          </li>
+          <li
             className={getLocation.pathname === "/categories" ? "active" : ""}
             role="none"
             style={{ alignItems: "center" }}
@@ -41,22 +54,9 @@ const NavBar = () => {
           <li
             role="none"
             style={{ alignItems: "center" }}
-            className={getLocation.pathname === "/customers" ? "active" : ""}
+            className={getLocation.pathname === "/tags" ? "active" : ""}
           >
-            <Link className="link" to="/customers">
-              <span
-                style={{ paddingRight: "5px" }}
-                className="fa-solid fa-users"
-              ></span>
-              <span>Quản lý người dùng</span>
-            </Link>
-          </li>
-          <li
-            role="none"
-            style={{ alignItems: "center" }}
-            className={getLocation.pathname === "/services" ? "active" : ""}
-          >
-            <Link className="link" to="/services">
+            <Link className="link" to="/tags">
               <span
                 style={{ paddingRight: "5px" }}
                 class="fa-solid fa-tag"

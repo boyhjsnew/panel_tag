@@ -10,6 +10,7 @@ import NavBar from "./Components/NavBar";
 import Dashboard from "./Page/Dashboard";
 import Customer from "./Page/ManageCustomer/Customer";
 import Categroies from "./Page/ManageCategories/Categories";
+import Tags from "./Page/ManageTags/Tags";
 // import Breadcrumbs from "./Components/Breadcrumbs";
 
 const Layout = () => {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "/categories",
         element: <Categroies />,
+      },
+      {
+        path: "/tags",
+        element: <Tags />,
       },
     ],
   },

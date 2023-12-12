@@ -7,32 +7,32 @@ import { baseUrl } from "../config";
 import { toast } from "react-toastify";
 import ToastNotify from "./ToastNotify";
 import { styleError, styleSuccess } from "./ToastNotifyStyle";
-export default function ModalCategories(props) {
-  const [name, setName] = useState("");
+export default function Modaltags(props) {
+  const [value, setValue] = useState("");
 
-  const { modal, setModal, editCategoriesData, setEditCategoreData } = props;
+  const { modal, setModal, editTagsData, setEditTagsData } = props;
   const toggleModal = () => {
     setModal(!modal);
-    setEditCategoreData("");
+    setEditTagsData("");
   };
 
   useEffect(() => {
     // Nếu có dữ liệu khách hàng, thì điền dữ liệu đó vào các trường nhập liệu
-    if (editCategoriesData) {
-      setName(editCategoriesData.original.name || "");
+    if (editTagsData) {
+      setValue(editTagsData.original.value || "");
     } else {
       // Nếu không có dữ liệu khách hàng, xóa toàn bộ trường nhập liệu
-      setName("");
+      setValue("");
     }
-  }, [editCategoriesData]);
+  }, [editTagsData]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       // Gửi yêu cầu POST
-      const response = await axios.post(`${baseUrl}/api/category/add`, {
-        name,
+      const response = await axios.post(`${baseUrl}/api/tag/add`, {
+        value,
       });
 
       console.log("Success:", response);
@@ -44,10 +44,10 @@ export default function ModalCategories(props) {
   const handleUpdateCategories = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(
-        `${baseUrl}/api/category/update/${editCategoriesData.categories_id}`,
+      const response = await axios.post(
+        `${baseUrl}/api/tag/update/${editTagsData.tags_id}`,
         {
-          name,
+          value,
         }
       );
       toast.success(
@@ -95,7 +95,7 @@ export default function ModalCategories(props) {
                     marginTop: "0.5rem",
                   }}
                 >
-                  {editCategoriesData ? "Sửa thông tin" : "Thêm mới danh mục"}
+                  {editTagsData ? "Sửa thông tin" : "Thêm mới nhãn dán"}
                 </span>
                 <div className="close-modal" onClick={toggleModal}>
                   <i
@@ -111,15 +111,15 @@ export default function ModalCategories(props) {
                   <div className="row">
                     <div className="block col" style={{ flex: 1 }}>
                       <label className="block lbl-txt" htmlFor="">
-                        Tên danh mục
+                        Tên nhãn dán
                       </label>
                       <input
-                        value={name}
+                        value={value}
                         className="input-customer"
                         id="username"
                         type="text"
                         name="ServiceName"
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => setValue(e.target.value)}
                       />
                     </div>
                   </div>
@@ -140,7 +140,7 @@ export default function ModalCategories(props) {
 
                       <span className="p-component">Đóng</span>
                     </div>
-                    {editCategoriesData ? (
+                    {editTagsData ? (
                       <button
                         onClick={handleUpdateCategories}
                         className="btn-edit col "

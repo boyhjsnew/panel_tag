@@ -129,7 +129,7 @@ const Categroies = () => {
         .then((response) => {
           // Xóa thành công
           toast.success(
-            <ToastNotify status={0} message="Xoá phiếu thu thành công" />,
+            <ToastNotify status={0} message="Xoá danh mục thành công" />,
             { style: styleSuccess }
           );
           // Sau khi xóa, bạn có thể thực hiện lại yêu cầu GET để cập nhật danh sách khách hàng

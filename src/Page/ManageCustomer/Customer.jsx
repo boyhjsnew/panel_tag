@@ -252,7 +252,7 @@ const Customer = () => {
   return (
     <div
       style={{
-        paddingTop: "6rem",
+        paddingTop: "4rem",
         backgroundColor: "#EDF1F5",
       }}
     >

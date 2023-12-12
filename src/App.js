@@ -9,6 +9,7 @@ import NavBar from "./Components/NavBar";
 
 import Dashboard from "./Page/Dashboard";
 import Customer from "./Page/ManageCustomer/Customer";
+import Categroies from "./Page/ManageCategories/Categories";
 // import Breadcrumbs from "./Components/Breadcrumbs";
 
 const Layout = () => {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/customers",
         element: <Customer />,
+      },
+      {
+        path: "/categories",
+        element: <Categroies />,
       },
     ],
   },

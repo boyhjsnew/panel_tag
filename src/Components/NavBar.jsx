@@ -25,11 +25,11 @@ const NavBar = () => {
       <div style={{ flex: 6, display: "flex", justifyContent: "center" }}>
         <ul className="ul-list-nav">
           <li
-            className={getLocation.pathname === "/invoices" ? "active" : ""}
+            className={getLocation.pathname === "/categories" ? "active" : ""}
             role="none"
             style={{ alignItems: "center" }}
           >
-            <Link className="link" to="/invoices">
+            <Link className="link" to="/categories">
               <span
                 style={{ paddingRight: "5px" }}
                 className="fa-solid fa-layer-group"

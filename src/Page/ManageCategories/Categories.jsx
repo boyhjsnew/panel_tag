@@ -125,7 +125,7 @@ const Categroies = () => {
     } else {
       // Gửi yêu cầu DELETE đến endpoint để xóa khách hàng
       axios
-        .delete(`${baseUrl}/api/category/delete/${categories_id}`)
+        .delete(`${baseUrl}/api/category/delete?categories_id=${categories_id}`)
         .then((response) => {
           // Xóa thành công
           toast.success(

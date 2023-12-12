@@ -35,7 +35,6 @@ export default function ModalCategories(props) {
         name,
       });
 
-      console.log("Success:", response);
       setModal(!modal); // Đặt trạng thái modal tại đây nếu cần
     } catch (error) {
       console.error("Error:", error);
@@ -45,7 +44,7 @@ export default function ModalCategories(props) {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `${baseUrl}/api/category/update/${editCategoriesData.categories_id}`,
+        `${baseUrl}/api/category/update?categories_id=${editCategoriesData.original.categories_id}`,
         {
           name,
         }

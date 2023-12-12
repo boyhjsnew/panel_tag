@@ -122,7 +122,7 @@ const Tags = () => {
     } else {
       // Gửi yêu cầu DELETE đến endpoint để xóa khách hàng
       axios
-        .delete(`${baseUrl}/api/tag/delete/${tags_id}`)
+        .delete(`${baseUrl}/api/tag/delete/tagId=${tags_id}`)
         .then((response) => {
           // Xóa thành công
           toast.success(

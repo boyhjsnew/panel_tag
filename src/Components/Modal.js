@@ -105,7 +105,7 @@ export default function Modal(props) {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/user/update/${editCustomerData.user_id}`,
+        `${baseUrl}/api/user/update?user_id=${editCustomerData.user_id}`,
         {
           username,
           password,
@@ -127,7 +127,7 @@ export default function Modal(props) {
       toggleModal();
     } catch (error) {
       toggleModal();
-      toast.success(<ToastNotify status={0} message={error.massage} />, {
+      toast.error(<ToastNotify status={-1} message={error.massage} />, {
         style: styleError,
       });
     }

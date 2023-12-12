@@ -135,10 +135,17 @@ const Customer = () => {
 
   const handleDeleteCustomer = (e) => {
     e.preventDefault();
+    if (getIDRow === -1) {
+      toast.error(
+        <ToastNotify status={-1} message="Vui lòng chọn nguời dùng để xoá" />,
+        { style: styleError }
+      );
+      return;
+    }
 
     // Gửi yêu cầu DELETE đến endpoint để xóa khách hàng
     axios
-      .delete(`${baseUrl}/api/user/delete${getIDRow}`)
+      .delete(`${baseUrl}/api/user/delete?user_id=${getIDRow}`)
 
       .then((response) => {
         // Xóa thành công

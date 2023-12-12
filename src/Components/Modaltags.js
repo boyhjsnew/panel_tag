@@ -45,24 +45,23 @@ export default function Modaltags(props) {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `${baseUrl}/api/tag/update/${editTagsData.tags_id}`,
+        `${baseUrl}/api/tag/update?tags_id=${editTagsData.original.tags_id}`,
         {
           value,
         }
       );
-      toast.success(
-        <ToastNotify status={0} message="Cập nhật dữ liệu thành công" />,
-        {
-          style: styleSuccess,
-        }
-      );
-      setModal(!modal);
-      toggleModal();
+
+      // Xử lý phản hồi từ server (nếu cần)
+      console.log(response.data); // In ra dữ liệu từ server
+
+      // Thêm các hành động cần thiết sau khi cập nhật thành công
+      toast.success("Cập nhật thành công!");
     } catch (error) {
-      toggleModal();
-      toast.success(<ToastNotify status={0} message={error.massage} />, {
-        style: styleError,
-      });
+      // Xử lý lỗi
+      console.error("Error updating categories:", error);
+
+      // Thêm các hành động cần thiết khi có lỗi
+      toast.error("Có lỗi xảy ra khi cập nhật.");
     }
   };
 
